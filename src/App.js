@@ -5,6 +5,7 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 function App() {
 
+  const [ data, setData ] = useState(SampleData);
   const [ selectedId, setSelectedId ] = useState(0);
   const [ showRelations, setShowRelations ] = useState(false);
   const [ activeRelation, setActiveRelations] = useState([ "relation0", "relation1", "relation2" ]);
@@ -13,6 +14,8 @@ function App() {
   const [filter, setFilter] = useState("")
   const [ showFilterInput, setShowFilterInput ] = useState(false);
   const [ zoom, setZoom ] = useState(1);
+  const [ show, setShow ] = useState(false);
+  const [assetName, setAssetName] = useState("")
 
 
   const ShowRelations = (relations, x, y) => {
@@ -103,17 +106,51 @@ const FilterButton = <button className="btn btn-primary filterButton" style={{ba
 </span>
 </button>
 
-const PlusButton = <button className="btn btn-primary plusButton" style={{background:'#095aa3'}} onClick={()=>setZoom(zoom + 0.15)}>
-  <span className="mx-2">
-  {IconPlus}
-</span>
-</button>
+// const PlusButton = <button className="btn btn-primary plusButton" style={{background:'#095aa3'}} onClick={()=>setZoom(zoom + 0.15)}>
+//   <span className="mx-2">
+//   {IconPlus}
+// </span>
+// </button>
 
-const MinusButton = <button className="btn btn-primary minusButton" style={{background:'#095aa3'}} onClick={()=>setZoom(zoom - 0.15)}>
-  <span className="mx-2">
-  {IconMinus}
-</span>
-</button>
+// const MinusButton = <button className="btn btn-primary minusButton" style={{background:'#095aa3'}} onClick={()=>setZoom(zoom - 0.15)}>
+//   <span className="mx-2">
+//   {IconMinus}
+// </span>
+// </button>
+
+const AddAsset = () =>{
+
+let newData = [...data];
+if(newData[selectedId].persons.length == 10) return;
+newData[selectedId].persons.push({id:newData[selectedId].persons.length, name:assetName, relations:["relation1","relation2"]})
+
+setData(newData);
+setShow(false);
+setAssetName("");
+
+}
+
+
+const ModalNew =
+<div className="modal fade show d-block" id="exampleModal" style={{backgroundColor: 'rgba(0, 0, 0, 0.40)',}} onClick={()=>{console.log("modal closed for a new node");setShow(false);}} >
+  <div className="inputModal text-center rounded-circle" style={{position:'fixed', top:`${200}px`, left:`${900}px`,width:'400px', height:'400px', background:'#666',paddingTop:'70px'}} onClick={(e)=>e.stopPropagation()}>
+
+        <input
+              type="text"
+              name="asssetName"
+              onChange={ (event) => setAssetName(event.target.value) }
+              value={assetName}
+              style={{ borderRadius:'6px'}}
+              maxLength="5"
+              className="text-center w-50"
+              placeholder='Name'
+              />
+          <p className='text-light mt-4'>Type: Person (default)</p>
+          <p className='text-light mt-4'>Relations: relation1, relation2 (default)</p>
+              <br/>
+        <button className='btn btn-success menuButton w-25 mt-4' style={{ }} onClick={()=>{console.log("click on button - 1"); AddAsset();setShow(false);}}> Add </button>
+    </div>
+</div>
 
 const SvgPerson = (x,y)=><svg x={x} y={y} fill="#055392" width="80px" height="80px" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
 
@@ -128,6 +165,7 @@ const SvgDoor = (x,y) => <svg  x={x} y={y} fill="#055392" width="80px" height="8
 
   return (
     <div className="App">
+      {show && ModalNew}
       <div className="sideBar"
           style={{ }}>
           <button className='btn btn-info sidebarButton mb-1' style={{background:`${selectedId == 0 ? "#138496" : ""}`}} onClick={()=>SelectLaptop(0)}>
@@ -161,7 +199,7 @@ const SvgDoor = (x,y) => <svg  x={x} y={y} fill="#055392" width="80px" height="8
       <svg id="MainSvg" xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 1900  900`} transform={`matrix(${zoom} 0 0 ${zoom} 0 0)`} width={svgWidth} height={svgHeight}>
           
           {
-            SampleData.map(
+            data.map(
               (laptop) => {
                 // console.log(SampleData.length);
                 // console.log(laptop.persons.length);
@@ -323,14 +361,22 @@ const SvgDoor = (x,y) => <svg  x={x} y={y} fill="#055392" width="80px" height="8
                                 <ellipse stroke="#fff" fill="#fff" cx={a} cy={b} rx="90" ry="70"/>
                                 {SvgLaptop(a-40,b-50)}
                                 <text x={a} y={b+5+40} textAnchor='middle' fill="#055392" strokeWidth="0" style={{fontSize:'20px',fontWeight:'600',}}>{laptop.name}</text>
+                                {data[selectedId].persons.length<10 &&
+                                <> 
                                 <line x1={a-5} y1={b-50} x2={a-5} y2={b-140} stroke="#45b56d" strokeWidth="4"/>
                                 <svg width="3rem" height="3rem" x={a-30} y={b-200} viewBox="0 0 24 24">
-                                  <g onClick={()=>alert(">>>>>>   NoT iMPLeMeNTeD YeT!   <<<<<<")}>
+                                  <g onClick={()=>{
+                                      // alert(">>>>>>   NoT iMPLeMeNTeD YeT!   <<<<<<");
+                                      setShow(true);
+
+                                      }}>
                                     <circle cx="12" cy="12" r="12" fill="#45b56d" />
                                     <line x1="5" y1="12" x2="19" y2="12" stroke="#ffffff" strokeWidth="3"/>
                                     <line x1="12" y1="5" x2="12" y2="19" stroke="#ffffff" strokeWidth="3"/>
                                   </g>
                                 </svg>
+                                </>
+                                }
                                 { showRelations && ActiveRelations}
                             </g>
                   )
