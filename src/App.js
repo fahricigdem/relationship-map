@@ -265,7 +265,7 @@ const SvgDoor = (x,y) => <svg  x={x} y={y} fill="#055392" width="80px" height="8
                                                       <text textAnchor='middle' x={`${px}`} y={`${py+5}`} >{room.name}</text> */}
 
                                                       <ellipse stroke="#fff" fill="#fff" cx={`${px}`} cy={`${py}`} rx="90" ry="70"/>
-                                                      {SvgScreen(px-40,py-50)}
+                                                      {SvgDoor(px-40,py-50)}
                                                       <text textAnchor='middle' x={`${px}`} y={`${py+5+40}`} fill="#055392" style={{fontSize:'18px', fontWeight:'600',}}>{room.name}</text>
 
 
