@@ -133,7 +133,7 @@ setAssetName("");
 
 const ModalNew =
 <div className="modal fade show d-block" id="exampleModal" style={{backgroundColor: 'rgba(0, 0, 0, 0.40)',}} onClick={()=>{console.log("modal closed for a new node");setShow(false);}} >
-  <div className="inputModal text-center rounded-circle" style={{position:'fixed', top:`${200}px`, left:`${900}px`,width:'400px', height:'400px', background:'#666',paddingTop:'70px'}} onClick={(e)=>e.stopPropagation()}>
+  <div className="inputModal text-center rounded-circle" style={{position:'fixed', top:`${200}px`, left:`${window.innerWidth/2}px`,width:'400px', height:'400px', background:'#666',paddingTop:'70px'}} onClick={(e)=>e.stopPropagation()}>
 
         <input
               type="text"
@@ -364,17 +364,15 @@ const SvgDoor = (x,y) => <svg  x={x} y={y} fill="#055392" width="80px" height="8
                                 {data[selectedId].persons.length<10 &&
                                 <> 
                                 <line x1={a-5} y1={b-50} x2={a-5} y2={b-140} stroke="#45b56d" strokeWidth="4"/>
-                                <svg width="3rem" height="3rem" x={a-30} y={b-200} viewBox="0 0 24 24">
-                                  <g onClick={()=>{
+                                  <g  onClick={()=>{
                                       // alert(">>>>>>   NoT iMPLeMeNTeD YeT!   <<<<<<");
                                       setShow(true);
 
                                       }}>
-                                    <circle cx="12" cy="12" r="12" fill="#45b56d" />
-                                    <line x1="5" y1="12" x2="19" y2="12" stroke="#ffffff" strokeWidth="3"/>
-                                    <line x1="12" y1="5" x2="12" y2="19" stroke="#ffffff" strokeWidth="3"/>
+                                    <circle cx={a-5} cy={b-165} r="20" fill="#45b56d" />
+                                    <line x1={a-18} y1={b-165} x2={a+8} y2={b-165} stroke="#ffffff" strokeWidth="5"/>
+                                    <line x1={a-5} y1={b-178} x2={a-5} y2={b-151} stroke="#ffffff" strokeWidth="5"/>
                                   </g>
-                                </svg>
                                 </>
                                 }
                                 { showRelations && ActiveRelations}
