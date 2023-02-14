@@ -1,23 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
+import {SampleData} from './sample-data'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      { 
+        SampleData.map(
+          (laptop) => <div key={laptop.id} style={{background:'#aaa',}}> 
+                          <p>laptop.name: {laptop.name}</p> 
+                          <div style={{background:'#ccc',}}>
+                               <p> - persons:</p>
+                               {
+                                laptop.persons.map(
+                                  person =>  
+                                          <div key={person.id}>
+                                                <p> -- person.name: {person.name}</p>
+                                                <div style={{background:'#ddf',}}>
+                                                    <p> -- relations:</p>
+                                                    <div >
+                                                        {
+                                                          person.relations.map(
+                                                            (relation, i) => <p key={i}> --- {relation} </p>
+                                                          )
+                                                        }
+                                                    </div>                                                        
+
+                                                </div>
+                                          </div>
+                                )
+                               } 
+                            
+                          </div>
+                      </div>
+        )
+      }
     </div>
   );
 }
