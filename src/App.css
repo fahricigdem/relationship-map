@@ -1,0 +1,52 @@
+.sideBar{
+  width:400px; 
+  height : 100vh; 
+  background:#aaa; 
+  position: fixed;
+  left:0px;
+  top:0px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarButton{
+  width:400px;
+  height: 80px;
+
+}
+
+.relationLine{
+  stroke-width:3px; 
+  stroke:#666;
+}
+
+.relationLine:hover{
+  stroke:#31a5e0;
+  stroke-width:6px; 
+
+}
+
+.filterButton{
+  position: fixed;
+  right:10px;
+  top:100px;
+}
+.plusButton{
+  position: fixed;
+  right:10px;
+  top:150px;
+}
+.minusButton{
+  position: fixed;
+  right:10px;
+  top:200px;
+}
+
+.filterInput{
+  position: fixed;
+  right:90px;
+  top:97px;
+  width:12rem;
+  height:3rem;
+}
