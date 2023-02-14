@@ -149,7 +149,7 @@ const SvgDoor = (x,y) => <svg  x={x} y={y} fill="#055392" width="80px" height="8
             </button>
 
       </div>
-      <div style={{width:'80vw', height:'100vh',background:'white'}}>
+      <div style={{width:'80vw', height:'100vh',background:'white', overflow:'scroll',}}>
 
 
       <svg id="MainSvg" xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 1900  900`} transform={`matrix(${zoom} 0 0 ${zoom} 0 0)`}>
