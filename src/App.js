@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import {SampleData} from './sample-data'
-import {laptop} from './laptop.svg';
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 function App() {
 
@@ -21,8 +21,6 @@ function App() {
     setPosOfRelationY(y);
     setActiveRelations(relations);
     setShowRelations(true);
-
-    
   }
 
   const HideRelations = () => {
@@ -124,6 +122,8 @@ const SvgDoor = (x,y) => <svg  x={x} y={y} fill="#055392" width="80px" height="8
 
   var width= 1900;
   var height= 900;
+  var svgWidth= window.innerWidth - window.innerWidth/5 -10;
+  var svgHeight= window.innerHeight-10;
 
 
   return (
@@ -149,10 +149,16 @@ const SvgDoor = (x,y) => <svg  x={x} y={y} fill="#055392" width="80px" height="8
             </button>
 
       </div>
-      <div style={{width:'80vw', height:'100vh',background:'white', overflow:'scroll',}}>
+      <div className='svgContainer' style={{}}>
 
 
-      <svg id="MainSvg" xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 1900  900`} transform={`matrix(${zoom} 0 0 ${zoom} 0 0)`}>
+      <TransformWrapper>
+      {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
+<>
+
+
+        <TransformComponent>
+      <svg id="MainSvg" xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 1900  900`} transform={`matrix(${zoom} 0 0 ${zoom} 0 0)`} width={svgWidth} height={svgHeight}>
           
           {
             SampleData.map(
@@ -337,11 +343,31 @@ const SvgDoor = (x,y) => <svg  x={x} y={y} fill="#055392" width="80px" height="8
           {/* <circle cx="1920" cy="937" r="10"/> */}
           {/* <circle cx={400 + (window.innerWidth - 400)/2} cy={window.innerHeight/2} r="10" fill="red"/> */}
       </svg>
+
+      </TransformComponent>
+      <div className="tools" style={{zIndex:'1000',}}>
+      {FilterButton}
+      <button className="btn btn-primary plusButton" style={{background:'#095aa3'}} onClick={() => zoomIn()}>
+          <span className="mx-2">
+          {IconPlus}
+          </span>
+      </button>
+      <button className="btn btn-primary minusButton" style={{background:'#095aa3'}} onClick={() => zoomOut()}>
+        <span className="mx-2">
+         {IconMinus}
+        </span>
+      </button>
+{/* <button onClick={() => resetTransform()}>x</button> */}
+</div>
+
+      </>
+      )}
+      </TransformWrapper>
       </div>
 
-      {FilterButton}
-      {PlusButton}
-      {MinusButton}
+      {/* {FilterButton} */}
+      {/* {PlusButton}
+      {MinusButton} */}
       
       { showFilterInput && FilterInput}
 

@@ -11,6 +11,17 @@
   flex-direction: column;
 }
 
+.svgContainer{
+  width:80vw; 
+  height:100vh;
+  background:white; 
+  overflow:scroll;
+}
+
+.svgContainer::-webkit-scrollbar {
+  display: none;
+}
+
 .sidebarButton{
   width:20vw;
   height: 80px;
