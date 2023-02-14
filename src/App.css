@@ -1,10 +1,11 @@
+.App{
+  display: flex;
+}
 .sideBar{
-  width:400px; 
+  width:20vw;; 
   height : 100vh; 
   background:#aaa; 
-  position: fixed;
-  left:0px;
-  top:0px;
+
 
   display: flex;
   flex-direction: column;

@@ -121,18 +121,46 @@ const SvgPerson = (x,y)=><svg x={x} y={y} fill="#055392" width="80px" height="80
 
 const SvgDoor = (x,y) => <svg  x={x} y={y} fill="#055392" width="80px" height="80px" viewBox="0 0 32 32"><path d="M30 28.75h-2.779v-26.75c-0-0.69-0.56-1.25-1.25-1.25h-19.971c-0.69 0-1.25 0.56-1.25 1.25v0 26.75h-2.75c-0.69 0-1.25 0.56-1.25 1.25s0.56 1.25 1.25 1.25v0h28c0.69 0 1.25-0.56 1.25-1.25s-0.56-1.25-1.25-1.25v0zM7.25 28.75v-25.5h17.471v25.5zM21.48 14.84c-0.138-0.057-0.299-0.089-0.467-0.089-0.349 0-0.665 0.141-0.894 0.37l0-0c-0.232 0.222-0.377 0.534-0.379 0.88v0c0.004 0.174 0.041 0.338 0.103 0.489l-0.003-0.009c0.066 0.157 0.161 0.291 0.279 0.4l0.001 0.001c0.219 0.234 0.529 0.38 0.874 0.38 0.002 0 0.005 0 0.007-0h-0c0.174-0.005 0.339-0.041 0.489-0.104l-0.009 0.003c0.3-0.143 0.537-0.379 0.676-0.671l0.004-0.009c0.058-0.142 0.094-0.306 0.1-0.477l0-0.002c-0.002-0.346-0.148-0.658-0.38-0.879l-0-0c-0.109-0.119-0.241-0.214-0.391-0.278l-0.007-0.003z"></path></svg>
   // console.log(window.innerWidth, window.innerHeight)
+
+  var width= 1900;
+  var height= 900;
+
+
   return (
     <div className="App">
+      <div className="sideBar"
+          style={{ }}>
+          <button className='btn btn-info sidebarButton mb-1' style={{background:`${selectedId == 0 ? "#138496" : ""}`}} onClick={()=>SelectLaptop(0)}>
+            <span className="mr-3">
+              {IconLaptop}
+            </span>
+            Laptop-519
+            </button>
+          <button className='btn btn-info sidebarButton my-1' style={{background:`${selectedId == 1 ? "#138496" : ""}`}} onClick={()=>SelectLaptop(1)}> 
+          <span className="mr-3">
+              {IconLaptop}
+            </span>
+          Laptop-310</button>
+          <button className='btn btn-info sidebarButton my-1' style={{background:`${selectedId == 2 ? "#138496" : ""}`}} onClick={()=>SelectLaptop(2)}> 
+          <span className="mr-3">
+              {IconLaptop}
+            </span>
+            Laptop-100
+            </button>
 
-      <svg id="MainSvg" xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 ${window.innerWidth}  ${window.innerHeight}`} transform={`matrix(${zoom} 0 0 ${zoom} 0 0)`}>
+      </div>
+      <div style={{width:'80vw', height:'100vh',background:'white'}}>
+
+
+      <svg id="MainSvg" xmlns="http://www.w3.org/2000/svg" viewBox={`0 0 1900  900`} transform={`matrix(${zoom} 0 0 ${zoom} 0 0)`}>
           
           {
             SampleData.map(
               (laptop) => {
                 // console.log(SampleData.length);
                 // console.log(laptop.persons.length);
-                let a = 400 + (window.innerWidth - 400)/2;
-                let b = window.innerHeight/2;
+                let a = width/2;
+                let b = height/2;
                 let rx = 600;
                 let ry = 350;
                 if(laptop.id != selectedId)
@@ -167,7 +195,7 @@ const SvgDoor = (x,y) => <svg  x={x} y={y} fill="#055392" width="80px" height="8
 
                                                     return(
                                                       <g key={person.id}>
-                                                          <line className="relationLine" x1={400 + (window.innerWidth - 400)/2} y1={window.innerHeight/2} x2={px} y2={py} 
+                                                          <line className="relationLine" x1={width/2} y1={height/2} x2={px} y2={py} 
                                                               onMouseEnter={()=>ShowRelations(person.relations, px2, py2)} onMouseLeave={()=>HideRelations()}/>
                                                           { 
                                                               person.relations.filter(i=>(filter == "" || i.toLowerCase()==filter)).length > 1 && 
@@ -217,7 +245,7 @@ const SvgDoor = (x,y) => <svg  x={x} y={y} fill="#055392" width="80px" height="8
 
                                                     return(
                                                       <g key={room.id}>
-                                                        <line className="relationLine" x1={400 + (window.innerWidth - 400)/2} y1={window.innerHeight/2} x2={px} y2={py} 
+                                                        <line className="relationLine" x1={width/2} y1={height/2} x2={px} y2={py} 
                                                             onMouseEnter={()=>ShowRelations(room.relations, px2, py2)} onMouseLeave={()=>HideRelations()}/>
                                                        { 
                                                             room.relations.filter(i=>(filter == "" || i.toLowerCase()==filter)).length > 1 && 
@@ -265,7 +293,7 @@ const SvgDoor = (x,y) => <svg  x={x} y={y} fill="#055392" width="80px" height="8
                                                     
                                                     return(
                                                       <g key={screen.id}>
-                                                        <line className="relationLine" x1={400 + (window.innerWidth - 400)/2} y1={window.innerHeight/2} x2={px} y2={py} 
+                                                        <line className="relationLine" x1={width/2} y1={height/2} x2={px} y2={py} 
                                                             onMouseEnter={()=>ShowRelations(screen.relations, px2, py2)} onMouseLeave={()=>HideRelations()}/>
                                                        { 
                                                             screen.relations.filter(i=>(filter == "" || i.toLowerCase()==filter)).length > 1 && 
@@ -309,32 +337,14 @@ const SvgDoor = (x,y) => <svg  x={x} y={y} fill="#055392" width="80px" height="8
           {/* <circle cx="1920" cy="937" r="10"/> */}
           {/* <circle cx={400 + (window.innerWidth - 400)/2} cy={window.innerHeight/2} r="10" fill="red"/> */}
       </svg>
+      </div>
+
       {FilterButton}
       {PlusButton}
       {MinusButton}
       
       { showFilterInput && FilterInput}
-      <div className="sideBar"
-          style={{ }}>
-          <button className='btn btn-info sidebarButton mb-1' style={{background:`${selectedId == 0 ? "#138496" : ""}`}} onClick={()=>SelectLaptop(0)}>
-            <span className="mr-3">
-              {IconLaptop}
-            </span>
-            Laptop-519
-            </button>
-          <button className='btn btn-info sidebarButton my-1' style={{background:`${selectedId == 1 ? "#138496" : ""}`}} onClick={()=>SelectLaptop(1)}> 
-          <span className="mr-3">
-              {IconLaptop}
-            </span>
-          Laptop-310</button>
-          <button className='btn btn-info sidebarButton my-1' style={{background:`${selectedId == 2 ? "#138496" : ""}`}} onClick={()=>SelectLaptop(2)}> 
-          <span className="mr-3">
-              {IconLaptop}
-            </span>
-            Laptop-100
-            </button>
 
-      </div>
     </div>
   );
 }
